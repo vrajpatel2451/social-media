@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+.join-community {
+  display: flex;
+  width: 100%;
+  padding: 10vh 10vw;
+  /* padding-bottom: 40vh; */
+  /* height: 100vh; */
+  align-items: center;
+  /* padding-left: 2vw; */
+}
+
+.join-community img {
+  width: 40vw;
+  height: 40vh;
+}
+
+.community-right {
+  position: relative;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin-left: 10rem;
+}
+
+/* .community-right::before {
+  z-index: 35;
+  content: "";
+  background: url("../frontend-designs/dash.png");
+  position: absolute;
+  top: 0;
+  left: 0;
+} */
+
+.community-right img {
+  width: auto;
+  height: 7rem;
+  margin-bottom: 3rem;
+  margin-left: 1rem;
+}
+.community-right h1 {
+  font-size: 3rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+}
+
+.community-right p {
+  font-family: "Poppins", sans-serif;
+  width: 30vw;
+  font-weight: 400;
+  font-size: 1rem;
+  color: gray;
+  margin-bottom: 2rem;
+}
+
+.community-right button {
+  font-size: 1rem;
+  width: auto;
+  color: #b7278b;
+  border: 1px solid #b7278b;
+  font-family: "Poppins", sans-serif;
+  font-weight: regular;
+  /* margin: 0.5rem; */
+  /* margin-right: 1rem; */
+  font-weight: 500;
+  padding: 0.5rem 2rem;
+  border-radius: 50px;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.community-right button:hover {
+  box-shadow: 0px 0px 2px #fd1cba;
+  text-shadow: 0px 0px 1px #fd1cba;
+  border-color: #b7278b;
+  color: #b7278b;
+}

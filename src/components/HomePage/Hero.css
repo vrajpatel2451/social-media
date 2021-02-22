@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+.hero {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  /* justify-content: space-evenly; */
+  padding: 10vh 10vw;
+}
+
+.hero-left {
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin-right: 1vw;
+}
+
+.hero-left h1 {
+  font-size: 4rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+}
+
+.hero-left p {
+  font-family: "Poppins", sans-serif;
+  font-weight: lighter;
+  line-height: 20px;
+  letter-spacing: 1.5px;
+  margin-top: 0.1rem;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.hero-left button {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  letter-spacing: 2px;
+  border: none;
+  background: linear-gradient(#f4347b, #ff6456);
+  color: white;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  border-radius: 50px;
+  margin-top: 1rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.hero-left button:hover {
+  box-shadow: 0 1px 1px 0 #fd1cb975, 0 1px 3px 1px #fd1cb941;
+}
+
+.hero-left button a {
+  color: white;
+}
+
+.hero img {
+  width: 50vw;
+  height: 50vh;
+}
