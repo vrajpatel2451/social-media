@@ -7,14 +7,14 @@ import {Link} from 'react-router-dom'
 
 
 
-function DoctorList({ expertList }) {
+function DoctorList( {expertList} ) {
     // console.log(expertList);
     const data = expertList;
     
     return (
         <>
         {
-            (expertList === null || expertList === undefined)? <h1>loading....</h1> :
+            (expertList === null || expertList === undefined || expertList==={} || expertList === [])? <h1>loading....</h1> :
         <div className="doctor-list">
             {
                 
@@ -26,7 +26,7 @@ function DoctorList({ expertList }) {
                             
                             <div className="container-list" key={expert.expertId}>
                                 <div className="upper-container-list">
-                                <img src={img}></img>
+                                <img src={expert.expertPath}></img>
                                     <div className="container-right-list">
                                         <h2>
                                             {expert.expertName}

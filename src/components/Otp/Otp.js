@@ -1,10 +1,19 @@
 import axios from 'axios';
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './Otp.css'
-import {useHistory} from 'react-router-dom'
+import {Redirect, useHistory} from 'react-router-dom'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-function Otp() {
+
+
+function Otp(props) {
     const [Otp, setOtp] = useState({});
+    useEffect(()=>{
+      if (props.isAuthenticated) {
+        return <Redirect to="/" />;
+      }
+    },[])
     // const [finalOtp, setFinalOtp] = useState({});
     const history = useHistory();
     const handleSubmit = (e) => {
@@ -63,4 +72,13 @@ function Otp() {
     )
 }
 
-export default Otp
+Otp.propTypes = {
+  // login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated : state.authReducer.isAuthenticated,
+})
+
+export default connect(mapStateToProps) (Otp)

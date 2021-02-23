@@ -14,8 +14,10 @@ const initialState = {
             }
             
         case GET_INDIVIDUAL:
+            // debugger;
             return{
                 ...state,
+                list: [],
                 individual : action.payload
             }
         default:

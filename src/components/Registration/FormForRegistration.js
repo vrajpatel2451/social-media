@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import {useHistory} from 'react-router-dom'
+import PropTypes from 'prop-types'
+
 const initialValues = {
     userName:"",
     userEmail: "",
@@ -27,17 +30,17 @@ const validateComments = (values) => {
 
 
 
-function FormForLogin() {
+function FormForRegistration({register}) {
     const [formValues, setFormValues] = useState(initialValues);
-    const [finalFormValues, setFinalFormValues] = useState(final);
+    // const [finalFormValues, setFinalFormValues] = useState(final);
     const history = useHistory();
-    const handleChange = (e) => {
-        e.preventDefault();
-        setFormValues(
+    // const handleChange = (e) => {
+    //     e.preventDefault();
+    //     setFormValues(
             
-            e.target.name = e.target.value,
-        )
-    };
+    //         e.target.name = e.target.value,
+    //     )
+    // };
     
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -51,18 +54,24 @@ function FormForLogin() {
         final.userName = formValues.userName;
         final.userEmail = formValues.userEmail;
         final.userPassword = formValues.userPassword;
-
         console.log(final);
         axios.post("http://107.23.113.233:8080/MentalcareCommunity/registration/user",final)
         .then((response)=>{
-
           console.log(response);
           history.push('/otp-verification');
         })
         .catch((error)=>{
+          
           console.log(error);
         })
-    
+        // const { userName, userEmail, userPassword } = formValues;
+        
+        // const newUser = {
+        //   userName,
+        //   userEmail,
+        //   userPassword
+        // };
+        // register(newUser);
     };
   return (
     <div className="FormForLogin">
@@ -100,4 +109,13 @@ function FormForLogin() {
   );
 }
 
-export default FormForLogin;
+// FormForRegistration.propTypes = {
+//   register: PropTypes.func.isRequired,
+//   isAuthenticated: PropTypes.bool,
+// };
+
+// const mapStateToProps = (state)=>{
+//   isAuthenticated: state.authReducer.isAuthenticated
+// }
+
+export default  FormForRegistration;

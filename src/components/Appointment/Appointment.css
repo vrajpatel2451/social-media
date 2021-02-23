@@ -78,12 +78,16 @@
   min-height: 5rem;
 }
 
-.time-list ul {
+.time-list form {
   display: flex;
   flex-wrap: wrap;
 }
 
-.time-list ul li {
+form input[type="radio"] {
+  /* display: none; */
+}
+
+.time-list form .li {
   margin: 0.5rem 0.5rem;
   padding: 0.5rem 1rem;
   font-size: 1rem;
@@ -91,6 +95,11 @@
   /* border: 1px solid black; */
   background-color: #f8edf5;
   border-radius: 50px;
+}
+
+.li label input:checked ~ label {
+  color: white;
+  background-color: #b7278b;
 }
 
 .btn-class {
@@ -120,7 +129,11 @@
 }
 
 .btn-appointment {
-  margin-top: 1rem;
+  margin-top: 6rem;
+  display: block;
+  position: absolute;
+  /* top: 20px; */
+  z-index: 100;
 }
 
 .btn-appointment a {

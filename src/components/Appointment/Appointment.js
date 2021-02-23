@@ -56,7 +56,7 @@ function Appointment({ match, individual, GetIndividual }) {
                     <div className="container" key={individual.expertId} >
             
                         <div className="upper-container">
-                            <img src={img}></img>
+                            <img src={individual.expertPath}></img>
                             <div className="container-right">
                                 <h2>
                                     {individual.expertName}
@@ -80,7 +80,7 @@ function Appointment({ match, individual, GetIndividual }) {
                             </div>
                         </div>
                         <DateIndi expertId = {individual.expertId}></DateIndi>
-                                    <button className = "btn-appointment"><Link to="/verify"> Appointment</Link></button>
+                                    {/* <button className = "btn-appointment"><Link to="/verify"> Appointment</Link></button> */}
                     </div>
                         );
         
@@ -94,7 +94,7 @@ Appointment.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    individual : state.DoctorsReducer.list
+    individual : state.DoctorsReducer.individual
 });
 
 

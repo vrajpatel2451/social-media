@@ -27,7 +27,7 @@ nav h1 span {
 
 nav ul {
   display: flex;
-  margin-left: 20rem;
+  /* margin-left: 20rem; */
 }
 
 nav ul li {

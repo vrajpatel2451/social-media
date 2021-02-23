@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
 import img from '../../frontend-designs/Illustration-4.svg'
 import './Success.css'
-function Success() {
+function Success(props) {
+    useEffect(()=>{
+        if (localStorage.getItem('token')===null || localStorage.getItem('token')===undefined || localStorage.getItem('success')===null || localStorage.getItem('success')===undefined) {
+            return <Redirect to ="/"></Redirect>;
+        }
+        else{
+            if (props.history.location.state.success === undefined || props.history.location.state.success === null ){
+
+                console.log('success',localStorage.getItem('success'),props.history);
+                alert('hello');
+            }
+            else{
+                console.log('success02',props.history.location.state.success);
+                alert('yesssss!');
+
+            }
+        }
+    },[])
     return (
         <div className="success">
             <div className="details">

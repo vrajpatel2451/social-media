@@ -1,71 +1,33 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-
-const currentDate = (i)=>{
+import moment from 'moment'
+import {useHistory} from 'react-router-dom'
+// const currentDate = (i)=>{
     
-    const date = new Date().getDate()+i;
-    const currentMonth = new Date().getMonth();
-    const currentYear = new Date().getFullYear();
-    const f_date = {
-        date,
-        currentMonth,
-        currentYear
-    }
-    return f_date  
-}
-const currentOnlyDate = (i)=>new Date().getDate()+i;
-const currentFinalDate = (i) => {
-    const f_date = currentDate(i)
-    const  final_date = `${f_date.date}-${f_date.currentMonth}-${f_date.currentYear}`
-    return final_date
-};
+//     const date = new Date().getDate()+i;
+//     const currentMonth = new Date().getMonth();
+//     const currentYear = new Date().getFullYear();
+//     const f_date = {
+//         date,
+//         currentMonth,
+//         currentYear
+//     }
+//     return f_date  
+// }
+// const currentOnlyDate = (i)=>new Date().getDate()+i;
+// const currentFinalDate = (i) => {
+//     const f_date = currentDate(i)
+//     const  final_date = `${f_date.date}-${f_date.currentMonth}-${f_date.currentYear}`
+//     return final_date
+// };
 
-const getMonth = (month)=>{
-    switch (month) {
-        case 1:
-        return "Jan"
-         break;
-        case 2:
-        return "Feb"
-        break;
-        case 3:
-        return "Mar"
-        break;
-        case 4:
-        return "Apr"
-        break;
-        case 5:
-        return "May"
-        break;
-        case 6:
-        return "Jun"
-        break;
-        case 7:
-        return "Jul"
-        break;
-        case 8:
-        return "Aug"
-        break;
-        case 9:
-        return "Sep"
-        break;
-        case 10:
-        return "Oct"
-        break;
-        case 11:
-        return "Nov"
-        break;
-        case 12:
-        return "Dec"
-        break;                    
-        default:
-        break;
-        }
-    }
 
-    const currentMonth = getMonth( new Date().getUTCMonth());
-    const currentDay =  new Date().getDay();
+
+    // const currentMonth = getMonth( new Date().getUTCMonth());
+    // const currentDay =  new Date().getDay();
+    // const currentDay =  moment().add(10,'days').format('DD-MM-YYYY');
     function DateIndi(expertId) {
+        const HiStory =useHistory();
         const [dates,setDates] =useState(null);
         const [date1,setDate1] =useState(false);
         const [date2,setDate2] =useState(false);
@@ -74,14 +36,29 @@ const getMonth = (month)=>{
         const [date5,setDate5] =useState(false);
         const [date6,setDate6] =useState(false);
         const [date7,setDate7] =useState(false);
+        const [d,setD] =useState("");
+        const [selectedOption,setSelectedOption] =useState("");
+        const handleChange = (slotId) =>{
+            setSelectedOption(slotId);
+            console.log(selectedOption);
+
+        }
+        
+        const submitHandle = (e) =>{
+            e.preventDefault();
+            console.log("final",selectedOption);
+            localStorage.setItem('slotId',selectedOption);
+            HiStory.push('/verify');
+
+        }
                     // const [data,setData] =useState({});
     // const [idColor,setIdColor] =useState("");
     
-    console.log(currentOnlyDate);
-    console.log(currentMonth);
-    console.log("day",currentDay);
-    console.log(currentFinalDate(0));
-    console.log(expertId.expertId);
+    // console.log(currentOnlyDate);
+    // console.log(currentMonth);
+    // console.log("day",currentDay);
+    // console.log(currentFinalDate(0));
+    // console.log(expertId.expertId);
 
 
     const handleClick = ({value,date,id}) =>{
@@ -168,6 +145,7 @@ const getMonth = (month)=>{
         //     expertId: id
         // });
         setDates([]);
+        setD(date);
 
         // setIdColor("");
         // const form_data = new FormData();
@@ -204,68 +182,73 @@ const getMonth = (month)=>{
                 <form>
                     <div className="form-login">
                         <label  htmlFor="date0" className ={`${date1?"primary":"secondary"}`}>
-                            <span className="week">Mon</span>
-                            <span className="day">{currentMonth} {currentOnlyDate(0)}</span>
+                            <span className="week">{moment().format('ddd')}</span>
+                            <span className="day">{moment().format('MMM Do')}</span>
+                            
                         </label>
-                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date0"  onClick = {()=>{handleClick({value:1,date : currentFinalDate(0),id:expertId.expertId})}} />
+                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date0"  onClick = {()=>{handleClick({value:1,date : moment().format('DD-MM-YYYY'),id:expertId.expertId})}} />
                     </div>
                     <div className="form-login">
                         <label htmlFor="date1" className ={`${date2?"primary":"secondary"}`}>
-                            <span className="week">Tue</span>
-                            <span className="day">{currentMonth} {currentOnlyDate(1)}</span>
+                            <span className="week">{moment().add(1,'days').format('ddd')}</span>
+                            <span className="day">{moment().add(1,'days').format(' MMM Do')}</span>
                         </label>
-                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date1"  onClick = {()=>{handleClick({value:2,date : currentFinalDate(1),id:expertId.expertId})}} />
+                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date1"  onClick = {()=>{handleClick({value:2,date : moment().add(1,'days').format('DD-MM-YYYY'),id:expertId.expertId})}} />
                     </div>
                     <div className="form-login">
                         <label htmlFor="date2" className ={`${date3?"primary":"secondary"}`}>
-                            <span className="week">Wed</span>
-                            <span className="day">{currentMonth} {currentOnlyDate(2)}</span>
+                            <span className="week">{moment().add(2,'days').format('ddd')}</span>
+                            <span className="day">{moment().add(2,'days').format('MMM Do')}</span>
                         </label>
-                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date2"  onClick = {()=>{handleClick({value:3,date : currentFinalDate(2),id:expertId.expertId})}} />
+                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date2"  onClick = {()=>{handleClick({value:3,date : moment().add(2,'days').format('DD-MM-YYYY'),id:expertId.expertId})}} />
                     </div>
                     <div className="form-login">
                         <label htmlFor="date3" className ={`${date4?"primary":"secondary"}`}>
-                            <span className="week">Thu</span>
-                            <span className="day">{currentMonth} {currentOnlyDate(3)}</span>
+                            <span className="week">{moment().add(3,'days').format('ddd')}</span>
+                            <span className="day">{moment().add(3,'days').format('MMM Do')}</span>
                         </label>
-                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date3"  onClick = {()=>{handleClick({value:4,date :currentFinalDate(3),id:expertId.expertId})}} />
+                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date3"  onClick = {()=>{handleClick({value:4,date :moment().add(3,'days').format('DD-MM-YYYY'),id:expertId.expertId})}} />
                     </div >
                     <div className="form-login">
                         <label htmlFor="date4" className ={`${date5?"primary":"secondary"}`}>
-                            <span className="week">Fri</span>
-                            <span className="day">{currentMonth} {currentOnlyDate(4)}</span>
+                            <span className="week">{moment().add(4,'days').format('ddd')}</span>
+                            <span className="day">{moment().add(4,'days').format('MMM Do')}</span>
                         </label>
-                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date4"  onClick = {()=>{handleClick({value:5,date : currentFinalDate(4),id:expertId.expertId})}} />
+                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date4"  onClick = {()=>{handleClick({value:5,date : moment().add(4,'days').format('DD-MM-YYYY'),id:expertId.expertId})}} />
                     </div>
                     <div className="form-login">
                         <label htmlFor="date5" className ={`${date6?"primary":"secondary"}`}>
-                            <span className="week">Sat</span>
-                            <span className="day">{currentMonth} {currentOnlyDate(5)}</span>
+                            <span className="week">{moment().add(5,'days').format('ddd')}</span>
+                            <span className="day">{moment().add(5,'days').format('MMM Do')}</span>
                         </label>
-                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date5"  onClick = {()=>{handleClick({value:6,date : currentFinalDate(5),id:expertId.expertId})}} />
+                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date5"  onClick = {()=>{handleClick({value:6,date : moment().add(5,'days').format('DD-MM-YYYY'),id:expertId.expertId})}} />
                     </div>
                     <div className="form-login">
                         <label htmlFor="date6" className ={`${date7?"primary":"secondary"}`}>
-                            <span className="week">Sun</span>
-                            <span className="day">{currentMonth} {currentOnlyDate(6)}</span>
+                            <span className="week">{moment().add(6,'days').format('ddd')}</span>
+                            <span className="day">{moment().add(6,'days').format('MMM Do')}</span>
                         </label>
-                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date6"  onClick = {()=>{handleClick({value:7,date : currentFinalDate(6),id:expertId.expertId})}} />
+                        <input className="FieldClassLogin1" type = "radio" name = "date" id = "date6"  onClick = {()=>{handleClick({value:7,date : moment().add(6,'days').format('DD-MM-YYYY'),id:expertId.expertId})}} />
                     </div>
                 </form>
             </div>
             <div className="time-list">
-                <ul>
-                    {   (dates === [] || dates === undefined || dates === null)?<li>loading...</li>:
-                        (dates === "not done")?<li>Oops no date available</li>:
+                <form onSubmit={submitHandle}>
+                    {   (dates === [] || dates === undefined || dates === null)?<div className="li">loading...</div>:
+                        (dates === "not done")?<div className="li">Oops no date available</div>:
                         dates.map((date)=>{
                             return (
-                                
-                                <li key={date.slotId}>{date.startTime}</li>
+                                <div key={date.slotId} className="li">
+                                <label htmlFor={date.slotId} >
+                                <input type="radio"  id={date.slotId} value={date.slotId} name="slot"  onChange={()=>{handleChange(date.slotId)}}/>
+                                    {moment(date.startTime,'hh:mm:ss').format('h:mm a')}
+                                    </label>
+                                </div>
                                 )
                             })
                         }
-
-                </ul>
+                <button type="submit" className="btn-appointment">Book Appointment</button>
+                </form>
             </div>
         </div>
     )

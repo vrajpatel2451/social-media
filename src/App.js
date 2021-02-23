@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import './App.css'
 import Footer from './components/HomePage/Footer'
 import Header from './components/Header'
@@ -14,11 +14,31 @@ import Appointment from './components/Appointment/Appointment'
 import Verify from './components/Deatils/Verify'
 import Success from './components/Deatils/Success'
 import Otp from './components/Otp/Otp'
-import Payment from './components/Payment/Payment'
+// import Payment from './components/Payment/Payment'
+import { Provider as AlertProvider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
+import store from './redux/store'
+import { loadUser } from './redux/action/authAction'
+
+
+
+const alertOptions = {
+    timeout: 3000,
+    position: 'top center',
+  };
+
+
+
 
 function App() {
+
+    useEffect(()=>{
+        store.dispatch(loadUser());
+    },[])
+
     return (
         <>
+            <AlertProvider template={AlertTemplate} {...alertOptions}>
             <Router>
             <Header></Header>
             <Switch>
@@ -32,11 +52,12 @@ function App() {
             <Route path = "/verify" exact component={Verify} />
             <Route path = "/success" exact component={Success} />
             <Route path = "/otp-verification" exact component={Otp} />
-            <Route path = "/payment" exact component={Payment} />
+            {/* <Route path = "/payment" exact component={Payment} /> */}
             {/* <HomePage></HomePage> */}
 
             </Switch>
             </Router>
+            </AlertProvider>
         </>
         
     )

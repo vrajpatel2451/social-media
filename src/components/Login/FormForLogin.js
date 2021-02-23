@@ -1,33 +1,21 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {Link} from 'react-router-dom'
 import axios from 'axios'
-import {useHistory} from 'react-router-dom'
-const initialValues = {
-    
-  email: "",
+// import {useHistory} from 'react-router-dom'
+import { login } from '../../redux/action/authAction';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
+
+const initialValues = {    
+  username: "",
   password: ""
 };
 
-// const final ={
-//   username:"",
-//   password:""
-// }
-
-
-// const validateComments = (values) => {
-//     let error;
-//     if (!values) {
-//         error = "Required";
-//     }
-//     return error;
-// };
-
-
-
-
-function FormForLogin() {
+function FormForLogin({isAuthenticated, login}) {
     const [formValues, setFormValues] = useState(initialValues);
-    const history = useHistory();
+    const form = useRef(null);
+    // const history = useHistory();
     // const handleChange = (e) => {
     //     e.preventDefault();
     //     setFormValues(
@@ -40,28 +28,40 @@ function FormForLogin() {
         e.preventDefault();
         console.log(formValues);
         const form_data = new FormData();
-        form_data.set('username',formValues.email);
+        form_data.set('username',formValues.username);
         form_data.set('password',formValues.password);
-        // final.username = formValues.email;
-        // final.password = formValues.password;
-        console.log(form_data)
-        axios.post("http://107.23.113.233:8080/MentalcareCommunity/loginrequest",form_data)
-        .then((response)=>{
-          console.log(response.data.token);
-          const token = response.data.token;
-          localStorage.setItem("token",token);
-        })
-        .catch((error)=>{
-          console.log(error);
-        })
-    
+        var options = { content: form_data };
+        console.log("outer",form);
+        console.log("outer",options);
+    // // Request Body
+    // axios.post('http://107.23.113.233:8080/MentalcareCommunity/loginrequest', form_data)
+    //             .then((res) => {
+    //                 debugger;
+    //                 console.log(res);
+    //                 // dispatch({
+    //                 // type: LOGIN_SUCCESS,
+    //                 // payload: res.data.data,
+    //                 // });
+    //             })
+    //             .catch((err) => {
+    //                 debugger;
+    //                 alert('hi');
+    //                 // dispatch(returnErrors(err.response.data, err.response.status));
+    //                 // dispatch({
+    //                 // type: LOGIN_FAIL,
+    //                 // });
+    //             });
+    // const body = JSON.stringify({ userName:username, password });
+
+    debugger;
+        login(form_data);
     };
   return (
     <div className="FormForLogin">
-            <form onSubmit={(e)=>{handleSubmit(e)}}>
+            <form ref={form} onSubmit={(e)=>{handleSubmit(e)}}>
               
               <div className="formLogin">
-                <input className="FieldClassLogin" type="text" name="email" id="email" value ={formValues.email} onChange={(e)=>{setFormValues({...formValues,email : e.target.value})}}></input>
+                <input className="FieldClassLogin" type="text" name="email" id="email" value ={formValues.username} onChange={(e)=>{setFormValues({...formValues,username : e.target.value})}}></input>
                 <label htmlFor="email">email</label>
               
               </div>
@@ -84,4 +84,14 @@ function FormForLogin() {
   );
 }
 
-export default FormForLogin;
+FormForLogin.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.authReducer.isAuthenticated,
+});
+
+export default connect( mapStateToProps,{ login }) (FormForLogin);

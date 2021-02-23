@@ -20,6 +20,7 @@ function Individual({ match, individual, GetIndividual }) {
         // console.log(skills);
         // console.log(id)
         console.log(individual);
+        // debugger;
         GetIndividual(match.params.id);
         // axios.get(`http://107.23.113.233:8080/MentalcareCommunity/expert/${id}`)
         // .then((res)=>{
@@ -36,16 +37,17 @@ function Individual({ match, individual, GetIndividual }) {
 
 
 
-
+    console.log(individual);
 
     return (
         <>
             
-                return(
+                return({
+                    (individual===undefined || individual=== null || individual=== {})?<h1>loading...</h1>:
                     <div className="container" key={individual.expertId} >
             
                                 <div className="upper-container">
-                                    <img src={img}></img>
+                                    <img src={individual.expertPath}></img>
                                     <div className="container-right">
                                         <h2>
                                             {individual.expertName}
@@ -97,6 +99,7 @@ function Individual({ match, individual, GetIndividual }) {
                                             </div>
         </div>
             
+        }
         );
 
         </>
@@ -110,7 +113,8 @@ Individual.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    individual : state.DoctorsReducer.list
+    
+    individual : state.DoctorsReducer.individual
 });
 
 

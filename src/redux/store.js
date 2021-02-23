@@ -6,7 +6,7 @@ import RootReducer from './RootReducer'
 const initialState = {};
 
 const middlWare = [thunk];
-
+// debugger;
 const store = createStore(
     RootReducer,
     initialState,

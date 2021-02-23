@@ -2,25 +2,42 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import './Header.css'
-function Header() {
-    const [token,setToken] = useState("");
-    useEffect(
-        ()=>{
+import {connect} from 'react-redux'
+import {logout} from '../redux/action/authAction'
+import PropTypes from 'prop-types'
 
-            setToken(localStorage.getItem('token'));
-        },[]
-    )
-    const handleClick = () =>{
-        axios.get("http://107.23.113.233:8080/MentalcareCommunity/logoutrequest")
-        .then((res)=>{
-            console.log(res);
-            localStorage.removeItem('token');
-            // setToken("");
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-    }
+function Header(props) {
+    // const [token,setToken] = useState("");
+    // useEffect(
+    //     ()=>{
+
+    //         setToken(localStorage.getItem('token'));
+    //     },[]
+    // )
+
+    const { isAuthenticated } = props.auth;
+
+    const authLinks = (
+          <button onClick={props.logout} className="nav-link btn btn-info btn-sm text-light">
+            Logout
+          </button>
+    );
+
+    const guestLinks = (
+        <ul className="navbar-nav">
+          <button className="nav-item">
+            <Link to="/registration" className="nav-link">
+              Register
+            </Link>
+          </button>
+          <button className="nav-item">
+            <Link to="/login" className="nav-link">
+              Login
+            </Link>
+          </button>
+        </ul>
+      );
+
     return (
         <nav>
             <h1>e-Dost</h1>
@@ -29,14 +46,21 @@ function Header() {
                 <li><NavLink to="/">ABOUT US</NavLink ></li>
                 <li><NavLink to="/">CONTACT</NavLink ></li>
                 <li><NavLink to="/services">SERVICES</NavLink ></li>
+                <li><NavLink to="/">JOIN COMMUNITY</NavLink ></li>
             </ul>
-            <button><Link to="/">JOIN COMMUNITY</Link></button>
-            {
-                (token !== null)?
-                <button onClick={handleClick}>log out</button>:null
-            }
+            {/* <button><Link to="/">JOIN COMMUNITY</Link></button> */}
+            {isAuthenticated ? authLinks : guestLinks}
         </nav>
     )
 }
 
-export default Header
+Header.propTypes = {
+    auth: PropTypes.object.isRequired,
+    logout: PropTypes.func.isRequired,
+  };
+
+const mapStateToProps = (state) =>({
+    auth:state.authReducer
+})
+
+export default connect(mapStateToProps, { logout })(Header);

@@ -15,10 +15,13 @@
   position: relative;
   top: 0;
   left: 0;
-  width: 20vw;
+  width: 25vw;
   margin-right: 0rem;
-  padding: 0rem;
+  padding: 3rem 4rem;
   box-sizing: border-box;
+  background-color: white;
+  box-shadow: 0 0 0 10 rgba(100, 100, 100, 1);
+  border-radius: 4px;
   /* border: 1px solid #dadce0; */
   /* -webkit-border-radius: 8px; */
   /* border-radius: 8px; */
@@ -38,11 +41,13 @@
 /* field box */
 .FieldClassLogin {
   width: 100%;
-  padding: 0.625rem 10px;
+  padding: 0.6rem 0px;
+  padding-bottom: 0.3rem;
   font-size: 1rem;
   letter-spacing: 0.062rem;
   margin-bottom: 1.875rem;
-  border: 1px solid #b7278b;
+  border: none;
+  border-bottom: 1px solid #b7278b;
   color: #b7278b;
   background: transparent;
   border-radius: 4px;
@@ -50,12 +55,13 @@
 }
 .FieldClassLogin:focus {
   outline: none;
-  border: 2px solid #b7278b;
+  border: none;
+  border-bottom: 2px solid #b7278b;
 }
 /* label */
 .FormForLogin .formLogin label {
   position: absolute;
-  left: 10px;
+  left: -1px;
   top: -3px;
   padding: 0.625rem 0;
   color: #b7278b;
@@ -67,12 +73,12 @@
 
 .FormForLogin .formLogin .FieldClassLogin:focus ~ label,
 .FormForLogin .formLogin .FieldClassLogin:not([value=""]) ~ label {
-  left: 10px;
+  left: -2px;
   top: -1.125rem;
   color: #b7278b;
   padding-left: 5px;
   padding-right: 5px;
-  background-color: #e6e6e6;
+  background-color: white;
   /* background: transparent; */
   height: 10px;
   font-size: 0.75rem;
@@ -84,10 +90,11 @@
   border: none;
   outline: none;
   width: 100%;
-  /* background-color: #1a73e8; */
-  background: transparent;
-  border: 2px solid #b7278b;
-  color: #b7278b;
+  background-color: #b7278b;
+  /* background: transparent; */
+  /* border: 2px solid #b7278b; */
+  border: none;
+  color: white;
   border-radius: 0.312rem;
   float: right;
   cursor: pointer;
