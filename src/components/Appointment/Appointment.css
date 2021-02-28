@@ -144,3 +144,42 @@ form input[type="radio"] {
   color: black;
   background-color: #eebde1;
 }
+@media all and (max-width: 500px) {
+  .date-list form div label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid rgb(255, 255, 255);
+    /* background-color: #f8edf5; */
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 0.6rem 0rem;
+    cursor: pointer;
+  }
+  .date-list form div label .week {
+    font-size: 1rem;
+    /* text-align: center; */
+    font-weight: bold;
+  }
+
+  .date-list form div label .day {
+    font-size: 0.5rem;
+  }
+  .time-list form .li {
+    margin: 0.2rem 0.2rem;
+    padding: 0.4rem 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    /* border: 1px solid black; */
+    background-color: #f8edf5;
+    border-radius: 50px;
+  }
+  .btn-appointment {
+    margin-top: 0rem;
+    display: block;
+    position: absolute;
+    bottom: 50px;
+    z-index: 100;
+  }
+}

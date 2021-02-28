@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import './App.css'
 import Footer from './components/HomePage/Footer'
 import Header from './components/Header'
@@ -19,6 +19,8 @@ import { Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import store from './redux/store'
 import { loadUser } from './redux/action/authAction'
+import { AnimatePresence, motion } from 'framer-motion'
+import Modal from './components/Modal'
 
 
 
@@ -36,11 +38,14 @@ function App() {
         store.dispatch(loadUser());
     },[])
 
+    const [nulls,setNulls] = useState(false);
     return (
         <>
+            <AnimatePresence exitBeforeEnter onExitComplete={() => setNulls(false)}>
             <AlertProvider template={AlertTemplate} {...alertOptions}>
             <Router>
-            <Header></Header>
+            <Header nulls={nulls} setNulls={setNulls}></Header>
+            <Modal nulls={nulls} setNulls={setNulls} ></Modal>
             <Switch>
 
             <Route path = "/" exact component={HomePage} />
@@ -58,6 +63,7 @@ function App() {
             </Switch>
             </Router>
             </AlertProvider>
+            </AnimatePresence>
         </>
         
     )

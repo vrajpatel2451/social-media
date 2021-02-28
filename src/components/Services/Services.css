@@ -34,3 +34,27 @@
   margin-right: 5rem;
   width: 40vw;
 }
+@media all and (max-width: 500px) {
+  .services {
+    width: 100%;
+    height: auto;
+    padding: 6rem 2rem;
+  }
+  .upper-services {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-bottom: 3rem;
+    /* justify-content: center; */
+  }
+  .left-services {
+    width: 100%;
+    margin: 0rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .left-services p {
+    text-align: center;
+  }
+}

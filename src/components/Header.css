@@ -81,3 +81,34 @@ nav button:hover {
   border-color: #b7278b;
   color: #b7278b;
 }
+
+.media-query {
+  display: none;
+}
+.media-query-active {
+  display: none;
+}
+.media-query-active .nav-link {
+  display: none;
+}
+
+.null {
+  display: none;
+}
+
+@media all and (max-width: 1250px) {
+  nav {
+    width: 100%;
+    padding: 0px 2rem;
+    box-sizing: border-box;
+  }
+  .null {
+    display: none;
+  }
+  .media-query {
+    display: inline;
+  }
+  .non-media-query {
+    display: none;
+  }
+}

@@ -5,9 +5,15 @@ import './Header.css'
 import {connect} from 'react-redux'
 import {logout} from '../redux/action/authAction'
 import PropTypes from 'prop-types'
+import { FaTimes } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
+import { AnimatePresence, motion } from 'framer-motion'
 
-function Header(props) {
-    // const [token,setToken] = useState("");
+
+
+
+function Header({nulls,setNulls,...props}) {
+    
     // useEffect(
     //     ()=>{
 
@@ -15,10 +21,11 @@ function Header(props) {
     //     },[]
     // )
 
+
     const { isAuthenticated } = props.auth;
 
     const authLinks = (
-          <button onClick={props.logout} className="nav-link btn btn-info btn-sm text-light">
+          <button onClick={props.logout} className="nav-link btn btn-info btn-sm text-light" >
             Logout
           </button>
     );
@@ -41,15 +48,18 @@ function Header(props) {
     return (
         <nav>
             <h1>e-Dost</h1>
-            <ul>
+            <ul className="non-media-query">
                 <li><NavLink to="/">HOME</NavLink ></li>
                 <li><NavLink to="/">ABOUT US</NavLink ></li>
                 <li><NavLink to="/">CONTACT</NavLink ></li>
                 <li><NavLink to="/services">SERVICES</NavLink ></li>
                 <li><NavLink to="/">JOIN COMMUNITY</NavLink ></li>
-            </ul>
-            {/* <button><Link to="/">JOIN COMMUNITY</Link></button> */}
             {isAuthenticated ? authLinks : guestLinks}
+            </ul>
+              <button className="media-query" onClick={()=>{setNulls(!nulls); console.log(nulls)}}><FaBars size="1.5rem" color="#b7278b"></FaBars></button>
+            {/* <button><Link to="/">JOIN COMMUNITY</Link></button> */}
+            
+
         </nav>
     )
 }

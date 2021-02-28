@@ -90,3 +90,14 @@
   font-size: 1.5rem;
   font-weight: 600;
 }
+
+@media all and (max-width: 500px) {
+  .doctor-list {
+    flex-direction: column;
+  }
+  .container-list {
+    width: 100%;
+    margin: 0rem;
+    margin-bottom: 1rem;
+  }
+}

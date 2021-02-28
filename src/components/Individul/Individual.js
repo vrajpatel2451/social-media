@@ -73,10 +73,10 @@ function Individual({ match, individual, GetIndividual }) {
                                         <h2>Skills</h2>
                                         <ul>
                                             <li>love</li>
-                                            <li>relationship</li>
-                                            <li>mood swings</li>
                                             <li>anger</li>
                                             <li>marriage</li>
+                                            <li>relationship</li>
+                                            <li>mood swings</li>
                                         </ul>
                                     </div>
                                     <div className="education-experience">
@@ -100,7 +100,7 @@ function Individual({ match, individual, GetIndividual }) {
         </div>
             
         }
-        );
+        
 
         </>
     )

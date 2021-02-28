@@ -59,3 +59,37 @@
   width: 50vw;
   height: 50vh;
 }
+
+@media all and (max-width: 500px) {
+  .hero {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    /* border: 1px solid black; */
+    padding: 3rem 2rem;
+    padding-top: 12rem;
+    height: auto;
+    align-items: center;
+  }
+  .hero img {
+    width: 400px;
+    height: auto;
+    margin-bottom: 2rem;
+  }
+  .hero-left h1 {
+    padding: 0px 0px;
+    font-size: 2.4rem;
+    text-align: center;
+    /* background-color: white; */
+  }
+  .hero-left {
+    width: 100%;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  .hero-left p {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+}
