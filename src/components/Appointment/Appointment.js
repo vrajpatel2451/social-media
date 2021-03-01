@@ -52,7 +52,7 @@ function Appointment({ match, individual, GetIndividual }) {
     return (
         <>
             
-                return(
+                
                     <div className="container" key={individual.expertId} >
             
                         <div className="upper-container">
@@ -79,10 +79,10 @@ function Appointment({ match, individual, GetIndividual }) {
                                 </div>
                             </div>
                         </div>
-                        <DateIndi expertId = {individual.expertId}></DateIndi>
+                        <DateIndi expertId = {individual.expertId} expertName={individual.expertName}></DateIndi>
                                     {/* <button className = "btn-appointment"><Link to="/verify"> Appointment</Link></button> */}
                     </div>
-                        );
+                        
         
         </>
     )

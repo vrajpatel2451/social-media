@@ -28,6 +28,7 @@
   line-height: 80px;
   font-weight: bolder;
   color: rgb(32, 32, 32);
+  overflow: visible;
 }
 
 .otp-container .info p {
@@ -53,6 +54,7 @@
   background: transparent;
   border-radius: 4px;
   outline: none;
+  cursor: pointer;
 }
 
 #submitButtonOtp {
@@ -60,8 +62,39 @@
   border: none;
   background-color: #b7278b;
 }
+#submitButton:disabled,
+#submitButton[disabled] {
+  /* border: 1px solid #999999; */
+  background-color: #9c4d85;
+  color: #e0e0e0;
+}
 
 #resendButtonOtp {
   border: 1px solid #b7278b;
   color: #b7278b;
+}
+@media all and (max-width: 1250px) {
+  .otp-container {
+    flex-direction: column;
+    padding: 0rem 3rem;
+  }
+  .otp-container .info {
+    width: 100%;
+    margin: 0rem 0rem;
+    padding: 0rem 2rem;
+    /* overflow: visible; */
+    border: none;
+  }
+  .otp-container .info h1 {
+    margin-bottom: 1rem;
+  }
+  .FormForLogins {
+    margin: 3rem 3rem;
+    width: 50%;
+  }
+}
+@media all and (max-width: 1250px) {
+  .FormForLogins {
+    width: 100%;
+  }
 }

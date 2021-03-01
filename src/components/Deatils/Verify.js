@@ -2,6 +2,21 @@ import React,{useState} from 'react'
 import './Verify.css'
 import {Redirect,useHistory} from 'react-router-dom'
 import axios from 'axios';
+import  moment  from "moment";
+import { css } from '@emotion/react'
+import { FadeLoader } from 'react-spinners'
+import { toast } from "react-toastify";
+
+const loaderCSS = css`
+  position:fixed;
+  top:50%;
+  left:50%;
+  width:100px;
+  height:100px;
+  transform:translate(-50%,-50%);
+  overflow:visible;
+`
+toast.configure();
 
 const initialValues = {
     category:"",
@@ -41,17 +56,23 @@ const __DEV__ = document.domain === 'localhost';
 function Verify( props ) {
   const history = useHistory();
   const [formValues, setFormValues] = useState(initialValues);
-  const [values, setValues] = useState(initialValue);
+  const [load, setLoad] = useState(false);
   const [data, setData] = useState({});
   const [finalData, setFinalData] = useState({});
   // const history = useHistory();
   // const SlotId = localStorage.getItem('slotId'); 
+  const notify = (msg) => {
+    // debugger;
+    toast.error(msg, { position: toast.POSITION.TOP_CENTER });
+  }
   
   async function displayRazorpay(token) {
     const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
     
 		if (!res) {
-      alert('Razorpay SDK failed to load. Are you online?')
+      notify('Razorpay SDK failed to load. Are you online?')
+      setLoad(false);
+      // alert("Oops! something went wrong");
 			return
 		}
     
@@ -59,7 +80,8 @@ function Verify( props ) {
     .then((response) =>{
                  console.log("out",response.data.status);
                  if (response.data.status == "invalid slotId") {
-                   alert("response.data.status");
+                   setLoad(false);
+                   notify("invalid slot id");
                    console.log("in",response.data.status);
                    // break;
                    
@@ -69,9 +91,9 @@ function Verify( props ) {
                     
                     setData(response.data)
                     console.log("error",response.data)
-                        
+                    setLoad(false);
                     const options = {
-                      key: __DEV__ ? 'rzp_test_q5qUylJJ84aZld' : 'PRODUCTION_KEY',
+                      key: __DEV__ ? 'rzp_test_9B8AXwdinhrVTx' : 'PRODUCTION_KEY',
                       currency: "INR",
                       amount: "25000",
                       order_id: data01.orderId,
@@ -79,6 +101,7 @@ function Verify( props ) {
                         description: 'Pay your amount here.',
                         image: 'https://s3.amazonaws.com/com.jntalks.post.pic/ss.png',
                         handler: function (response) {
+                          setLoad(true);
                           console.log(response.razorpay_order_id);
                           console.log(response.razorpay_payment_id);
                           console.log(response.razorpay_signature);
@@ -88,14 +111,23 @@ function Verify( props ) {
                           axios.post('http://107.23.113.233:8080/MentalcareCommunity/secure/slot/slotbooking',initialValue)
                           .then((resp) =>{
                             // const data = resposnse.data.data;
-                                        console.log("order",resp.data.data);
-                                        setFinalData(resp.data);
-                                        console.log(finalData);
-                                        setFormValues({});
-                                        localStorage.removeItem('slotId');
-                                        localStorage.setItem('success',resp.data.data);
-                                        props.history.push({pathname:'/success',state:{success:resp.data.data}});
+                                        if (resp.data==="Something went wrong. may be paymentId or orderId does not exist") {
+                                          setLoad(false);
+                                          notify("Oops!something went wrong");
+                                        }
+                                        else{
+                                          setLoad(false);
+                                          console.log("order",resp.data);
+                                          setFinalData(resp.data);
+                                          console.log(finalData);
+                                          setFormValues({});
+                                          localStorage.removeItem('slotId');
+                                          localStorage.setItem('success',resp.data.data);
+                                          props.history.push({pathname:'/success',state:{success:resp.data.data}});
+                                        }
                                       }).catch((err)=>{
+                                        setLoad(false);
+                                        notify("something went wrong");
                                         console.log(err);
                                       })
                                       
@@ -160,6 +192,7 @@ function Verify( props ) {
   
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoad(true);
     if (localStorage.getItem('slotId') !== null && localStorage.getItem('slotId') !== undefined ) {
       setData({});
       const token = localStorage.getItem('token');
@@ -171,6 +204,7 @@ function Verify( props ) {
       initialFValues.category = formValues.category;
       console.log(formValues);
               if (token===null || token === undefined) {
+                setLoad(false);
                 console.log("nothing");
                 history.push({pathname: '/login',
                 state: { getpath: '/verify' }});
@@ -184,27 +218,29 @@ function Verify( props ) {
               }
             }
             else{
-        alert("no slot id");
+        notify("no slot id");
+              setLoad(false)
       }
     };
 
     
     return (
       <div className="verify">
+            <FadeLoader css={loaderCSS} size={50} color='black' loading={load}  />
             <div className="details">
                 <h1>Verify Appointment Details</h1>
                 <div className="details-list">
                     <div className="detail-individual">
                         <h6>Expert</h6>
-                        <p>Vraj Patel</p>
+                        <p>{localStorage.getItem('name')}</p>
                     </div>
                     <div className="detail-individual">
                         <h6>Date</h6>
-                        <p>Dec,26</p>
+                        <p>{moment(localStorage.getItem('date'),'dd-mm-yyyy').format('MMM Do')}</p>
                     </div>
                     <div className="detail-individual">
                         <h6>Time</h6>
-                        <p>9:38 am</p>
+                        <p>{moment(localStorage.getItem('time'),'hh:mm:ss').format('h:mm a')}</p>
                     </div>
                     <div className="detail-individual">
                         <h6>Type</h6>
@@ -212,27 +248,27 @@ function Verify( props ) {
                     </div>
                     <div className="detail-individual">
                         <h6>Charges</h6>
-                        <p>Rs 859</p>
+                        <p>Rs 250</p>
                     </div>
                 </div>
             </div>
-            <div className="FormForLogin">
+            <div className="FormForLogins">
             <form onSubmit={(e)=>{handleSubmit(e)}}>
               
-              <div className="formLogin">
-                <input className="FieldClassLogin" type="text" name="phone" id="phone" value ={formValues.phoneNumber} onChange={(e)=>{setFormValues({...formValues,phoneNumber : e.target.value})}}></input>
+              <div className="formLogins">
                 <label htmlFor="phone">Phone no</label>
+                <input className="FieldClassLogins" type="text" name="phone" id="phone" value ={formValues.phoneNumber} onChange={(e)=>{setFormValues({...formValues,phoneNumber : e.target.value})}}></input>
               
               </div>
 
-              <div className="formLogin">
-                <input className="FieldClassLogin" type="text" name="email" id="email" value = {formValues.emailId} onChange={(e)=>setFormValues({...formValues,emailId : e.target.value})}></input>
+              <div className="formLogins">
                 <label htmlFor="email">Email Id</label>
+                <input className="FieldClassLogins" type="text" name="email" id="email" value = {formValues.emailId} onChange={(e)=>setFormValues({...formValues,emailId : e.target.value})}></input>
               
               </div>
-              <div className="formLogin">
-                <input className="FieldClassLogin" type="text" name="catagory" id="catagory" value = {formValues.category} onChange={(e)=>setFormValues({...formValues,category : e.target.value})}></input>
+              <div className="formLogins">
                 <label htmlFor="catagory">Catagory</label>
+                <input className="FieldClassLogins" type="text" name="catagory" id="catagory" value = {formValues.category} onChange={(e)=>setFormValues({...formValues,category : e.target.value})}></input>
               
               </div>
               <button
@@ -240,7 +276,7 @@ function Verify( props ) {
                 id="submitButtonLogin"
                 type="submit"
               >
-                Pay Rs. 859
+                Pay Rs. 250
               </button>
             </form>
             </div>

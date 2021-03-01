@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import { returnErrors } from './messages';
-
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import {
   USER_LOADED,
   USER_LOADING,
@@ -10,9 +11,18 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  LOGIN_LOADING,
+  REMOVE_SUCCESS
 } from '../type/Type';
+import { Redirect } from 'react-router-dom';
 
 
+toast.configure();
+
+const notify = (msg) => {
+  // debugger;
+  toast.error(msg, { position: toast.POSITION.TOP_CENTER })
+}
 
 
 export const loadUser = () => (dispatch, getState) => {
@@ -20,44 +30,55 @@ export const loadUser = () => (dispatch, getState) => {
     dispatch({ type: USER_LOADING });
     
     if(localStorage.getItem('token') === null || localStorage.getItem('token') === undefined ){
-        // debugger;
-        dispatch({
-            type: AUTH_ERROR,
-          });
+      // debugger;
+      dispatch({
+        type: AUTH_ERROR,
+      });
     }
     else{
-        // debugger;
-        dispatch({
+      // debugger;
+      dispatch({
             type: USER_LOADED,
             payload: localStorage.getItem('token'),
-        });
-    }
-  };
-
-
-
-
-export const login = (form_data) => (dispatch) => {
-    
-    // var form_data = new FormData();
-    // form_data.set('username',"19039011@g.i");
-    // form_data.set('password',"dhdd");
-    // // Request Body
-    // // const body = JSON.stringify({ userName:username, password });
-    // debugger;
-                console.log("inner",form_data);
-                // dispatch({ type: USER_LOADING });
-                Axios.post('http://107.23.113.233:8080/MentalcareCommunity/loginrequest', form_data)
-                .then((res) => {
-                    // debugger;
-                    console.log("vraj",res.data.data);
-                    if (res.data.data === "invalid username and passwords" ) {
-                        alert('invalid username or password');
-                        // dispatch(returnErrors(err.response.data, err.response.status));
+          });
+        }
+      };
+      
+      
+      
+      
+      export const login = (form_data) => (dispatch) => {
+        
+        // var form_data = new FormData();
+        // form_data.set('username',"19039011@g.i");
+        // form_data.set('password',"dhdd");
+        // // Request Body
+        // // const body = JSON.stringify({ userName:username, password });
+        // debugger;
+        dispatch({ type: LOGIN_LOADING });
+        console.log("inner",form_data);
+        // dispatch({ type: USER_LOADING });
+        Axios.post('http://107.23.113.233:8080/MentalcareCommunity/loginrequest', form_data)
+        .then((res) => {
+          // debugger;
+          console.log("vraj",res.data.data);
+          if (res.data.data === "invalid username and passwords" ) {
+            // alert('invalid username or password');
+            // dispatch(returnErrors(err.response.data, err.response.status));
+                        notify("invalid username or password");
                         dispatch({
-                            type: LOGIN_FAIL,
+                          type: LOGIN_FAIL,
                         });
-                    }else{
+                      }
+          else if(res.data.data==="verify your account"){
+              notify("Verify your account");
+              dispatch({
+                type: LOGIN_FAIL,
+              });
+              return <Redirect to="/"></Redirect>
+
+          }          
+          else{
 
                         // debugger;
                         console.log("neel",res.data);
@@ -69,7 +90,8 @@ export const login = (form_data) => (dispatch) => {
                 })
                 .catch((err) => {
                     // debugger;
-                    alert('something went wrong');
+                    // alert('something went wrong');
+                    notify('something went wrong');
                     // dispatch(returnErrors(err.response.data, err.response.status));
                     dispatch({
                     type: LOGIN_FAIL,
@@ -106,5 +128,11 @@ export const login = (form_data) => (dispatch) => {
         });
       
   };
-
+  
+  export const removeError = () => (dispatch) => {
+        dispatch({
+          type: REMOVE_SUCCESS,
+        });
+      
+  };
 

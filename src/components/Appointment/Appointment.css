@@ -83,10 +83,6 @@
   flex-wrap: wrap;
 }
 
-form input[type="radio"] {
-  /* display: none; */
-}
-
 .time-list form .li {
   margin: 0.5rem 0.5rem;
   padding: 0.5rem 1rem;

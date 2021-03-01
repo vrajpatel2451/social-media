@@ -45,6 +45,38 @@
   text-align: left;
 }
 
+.FormForLogins {
+  /* width: 100%; */
+  margin-top: 0rem;
+  padding: 3rem 3rem;
+  height: auto;
+  width: 30vw;
+  background-color: white;
+  box-shadow: 0 0 10 rgba(100, 100, 100, 1);
+  border-radius: 4px;
+}
+
+.formLogins {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.formLogins label {
+  color: #b7278b;
+  font-size: 1rem;
+}
+
+.FieldClassLogins {
+  border: none;
+  border-bottom: 1px solid #b7278b;
+  outline: none;
+  background: transparent;
+  padding: 0.3rem 0rem;
+  font-size: 1.3rem;
+  color: #b7278b;
+}
+
 @media all and (max-width: 500px) {
   .verify {
     flex-direction: column;
@@ -78,8 +110,34 @@
     width: 100%;
     margin-bottom: 1rem;
   }
-  .FormForLogin {
+  .FormForLogins {
     width: 100%;
     margin-top: 1rem;
+    padding: 1rem 1rem;
+    height: auto;
+    background-color: white;
+    box-shadow: 0 0 10 rgba(100, 100, 100, 1);
+    border-radius: 4px;
+  }
+
+  .formLogins {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .formLogins label {
+    color: #b7278b;
+    font-size: 1rem;
+  }
+
+  .FieldClassLogins {
+    border: none;
+    border-bottom: 1px solid #b7278b;
+    outline: none;
+    background: transparent;
+    padding: 0.3rem 0rem;
+    font-size: 1.3rem;
+    color: #b7278b;
   }
 }

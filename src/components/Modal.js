@@ -57,7 +57,9 @@ function Modal({nulls,setNulls,auth,logout}) {
                 <li><NavLink to="/">JOIN COMMUNITY</NavLink ></li>
             {/* <button><Link to="/">JOIN COMMUNITY</Link></button> */}
             {(auth.isAuthenticated)
-            ?(<button onClick={logout} className="nav-link btn btn-info btn-sm text-light" >Logout</button>) 
+            ?(<ul className="navbar-nav">    
+                <li onClick={logout}>Logout</li>
+            </ul>) 
             :(<ul className="navbar-nav">
                 <li>
                     <Link to="/registration" >Register</Link>

@@ -34,7 +34,7 @@
   margin-right: 5rem;
   width: 40vw;
 }
-@media all and (max-width: 500px) {
+@media all and (max-width: 1250px) {
   .services {
     width: 100%;
     height: auto;

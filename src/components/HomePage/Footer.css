@@ -73,16 +73,18 @@ li:hover {
   font-size: 1rem;
 }
 
-@media all and (max-width: 550px) {
+@media all and (max-width: 1250px) {
   .footer {
     width: 100%;
     background-color: white;
     /* flex-direction: column; */
     /* align-items: flex-end; */
-    /* justify-content: center; */
+    display: flex;
+    justify-content: center;
     padding: 5rem 0rem;
     height: auto;
     border: none;
+    /* overflow: visible; */
   }
   .footer::after {
     display: none;
@@ -98,7 +100,8 @@ li:hover {
     padding: 0px;
     width: 400px;
     margin-left: 3.9rem;
-    justify-content: space-between;
+    /* justify-content: center; */
+    /* text-align: center; */
     font-size: 0.7rem;
     position: absolute;
     bottom: -28px;

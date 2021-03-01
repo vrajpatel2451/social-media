@@ -91,13 +91,22 @@
   font-weight: 600;
 }
 
+@media all and (max-width: 1250px) {
+  .container-list {
+    width: 45%;
+    align-items: center;
+  }
+}
 @media all and (max-width: 500px) {
   .doctor-list {
     flex-direction: column;
+    /* justify-content: center; */
   }
   .container-list {
     width: 100%;
     margin: 0rem;
     margin-bottom: 1rem;
+    /* justify-content: center;
+     */
   }
 }

@@ -26,7 +26,7 @@ import {useHistory} from 'react-router-dom'
     // const currentMonth = getMonth( new Date().getUTCMonth());
     // const currentDay =  new Date().getDay();
     // const currentDay =  moment().add(10,'days').format('DD-MM-YYYY');
-    function DateIndi(expertId) {
+    function DateIndi({expertId,expertName}) {
         const HiStory =useHistory();
         const [dates,setDates] =useState(null);
         const [date1,setDate1] =useState(false);
@@ -37,9 +37,12 @@ import {useHistory} from 'react-router-dom'
         const [date6,setDate6] =useState(false);
         const [date7,setDate7] =useState(false);
         const [d,setD] =useState("");
+        const [t,setT] =useState("");
         const [selectedOption,setSelectedOption] =useState("");
-        const handleChange = (slotId) =>{
+        
+        const handleChange = (slotId,startTime) =>{
             setSelectedOption(slotId);
+            setT(startTime);
             console.log(selectedOption);
 
         }
@@ -48,18 +51,13 @@ import {useHistory} from 'react-router-dom'
             e.preventDefault();
             console.log("final",selectedOption);
             localStorage.setItem('slotId',selectedOption);
+            localStorage.setItem('name',expertName);
+            localStorage.setItem('date',d);
+            localStorage.setItem('time',t);
             HiStory.push('/verify');
 
         }
-                    // const [data,setData] =useState({});
-    // const [idColor,setIdColor] =useState("");
-    
-    // console.log(currentOnlyDate);
-    // console.log(currentMonth);
-    // console.log("day",currentDay);
-    // console.log(currentFinalDate(0));
-    // console.log(expertId.expertId);
-
+                   
 
     const handleClick = ({value,date,id}) =>{
         switch (value) {
@@ -152,12 +150,13 @@ import {useHistory} from 'react-router-dom'
         // const date = Date();
         const datas = {
             date:date,
-            expertId:id
+            expertId:expertId
         }
         // const formattedDttm =  format(date, "dd.MM.yyyy H:mm:ss", { timeZone: "Asia/Kolkata" });
         // console.log(formattedDttm);
         console.log("clicked");
         console.log(datas);
+        console.log("final",d);
         // form_data.set("date","03-01-2021");
         // form_data.set("expertId","1");
         // formData.date = "3-1-2021";
@@ -240,14 +239,16 @@ import {useHistory} from 'react-router-dom'
                             return (
                                 <div key={date.slotId} className="li">
                                 <label htmlFor={date.slotId} >
-                                <input type="radio"  id={date.slotId} value={date.slotId} name="slot"  onChange={()=>{handleChange(date.slotId)}}/>
+                                <input type="radio"  id={date.slotId} value={date.slotId} name="slot"  onChange={()=>{handleChange(date.slotId,date.startTime)}}/>
                                     {moment(date.startTime,'hh:mm:ss').format('h:mm a')}
                                     </label>
                                 </div>
+                                
                                 )
                             })
                         }
                 <button type="submit" className="btn-appointment">Book Appointment</button>
+
                 </form>
             </div>
         </div>
